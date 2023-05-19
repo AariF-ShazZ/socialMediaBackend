@@ -9,10 +9,12 @@ export const register = async (req,res) =>{
             lastName,
             email,
             password,
+            picturePath,
             friends,
             location,
             occupation
         } = req.body
+        console.log(req.body);
         bcrypt.hash(password, 5, async (err, hash) => {
             // Store hash in your password DB.
             if(err){
@@ -23,6 +25,7 @@ export const register = async (req,res) =>{
                     lastName,
                     email,
                     password:hash,
+                    picturePath,
                     friends,
                     location,
                     occupation,
@@ -30,8 +33,8 @@ export const register = async (req,res) =>{
                     impression:Math.floor(Math.random() * 10000)
                 })
                 const savedUser = await user.save()
-                res.status(201).json(savedUser)
                 console.log(savedUser)
+                res.status(201).json(savedUser)
             }
         });
     }catch (err){
